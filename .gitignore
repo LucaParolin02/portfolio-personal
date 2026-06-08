@@ -1,0 +1,52 @@
+# Sistema operativo
+.DS_Store
+Thumbs.db
+
+# Editores
+.vscode/
+.idea/
+
+# Variables de entorno
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+.venv/
+venv/
+env/
+ENV/
+pip-wheel-metadata/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# FastAPI / logs
+*.log
+
+# Node / Frontend
+node_modules/
+dist/
+build/
+.pnpm-store/
+
+# Docker
+*.pid
+
+# Certificados locales
+infra/certbot/conf/
+infra/certbot/www/
+
+# Base de datos local
+*.sqlite
+*.db
+
+# Coverage
+coverage/
+htmlcov/
+.coverage
