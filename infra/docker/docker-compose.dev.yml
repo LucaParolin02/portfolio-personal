@@ -1,0 +1,39 @@
+name: portfolio-personal-dev
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: portfolio_postgres_dev
+    restart: unless-stopped
+
+    environment:
+      POSTGRES_DB: portfolio_db
+      POSTGRES_USER: portfolio_user
+      POSTGRES_PASSWORD: portfolio_password_dev
+
+    ports:
+      - "5432:5432"
+
+    volumes:
+      - portfolio_postgres_data:/var/lib/postgresql/data
+
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U portfolio_user -d portfolio_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  adminer:
+    image: adminer:4
+    container_name: portfolio_adminer_dev
+    restart: unless-stopped
+
+    ports:
+      - "8080:8080"
+
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+volumes:
+  portfolio_postgres_data:
