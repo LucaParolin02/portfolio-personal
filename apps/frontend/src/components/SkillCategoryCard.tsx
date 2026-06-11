@@ -6,8 +6,8 @@ type SkillCategoryCardProps = {
 
 export function SkillCategoryCard({ skillCategory }: SkillCategoryCardProps) {
   return (
-    <article className="rounded-[1.75rem] border border-[rgba(124,106,75,0.18)] bg-[var(--color-surface)] p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
-      <h3 className="text-center text-lg font-black text-[var(--color-dark)]">
+    <article className="rounded-[1.75rem] border border-[rgba(124,106,75,0.18)] bg-(--color-surface) p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
+      <h3 className="text-center text-lg font-black text-(--color-dark)">
         {skillCategory.category}
       </h3>
 
@@ -15,7 +15,7 @@ export function SkillCategoryCard({ skillCategory }: SkillCategoryCardProps) {
         {skillCategory.items.map((skill) => (
           <span
             key={skill}
-            className="rounded-full bg-[rgba(131,143,123,0.16)] px-3 py-1 text-xs font-bold text-[var(--color-dark)]"
+            className="rounded-full bg-[rgba(131,143,123,0.16)] px-3 py-1 text-xs font-bold textr(--color-dark)"
           >
             {skill}
           </span>

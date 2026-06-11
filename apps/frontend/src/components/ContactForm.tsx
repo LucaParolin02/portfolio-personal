@@ -103,13 +103,13 @@ export function ContactForm({ targetEmail }: ContactFormProps) {
   return (
     <form
       onSubmit={handleSubmit}
-      className="bg-[var(--color-form)] p-6 shadow-xl md:p-7"
+      className="bg-(--color-form) p-6 shadow-xl md:p-7"
     >
       <div className="grid gap-5">
         <div>
           <label
             htmlFor="contact-name"
-            className="text-sm font-black text-[var(--color-dark)]"
+            className="text-sm font-black text-(--color-dark)"
           >
             Nombre
           </label>
@@ -120,14 +120,14 @@ export function ContactForm({ targetEmail }: ContactFormProps) {
             value={formData.name}
             onChange={(event) => updateField('name', event.target.value)}
             placeholder="Tu nombre"
-            className="mt-2 w-full bg-[var(--color-surface)] px-4 py-3 text-sm font-bold text-[var(--color-dark)] outline-none transition placeholder:text-[var(--color-muted)] focus:ring-4 focus:ring-[rgba(236,234,231,0.45)]"
+            className="mt-2 w-full bg-(--color-surface) px-4 py-3 text-sm font-bold text-(--color-dark) outline-none transition placeholder:text-(--color-muted) focus:ring-4 focus:ring-[rgba(236,234,231,0.45)]"
           />
         </div>
 
         <div>
           <label
             htmlFor="contact-email"
-            className="text-sm font-black text-[var(--color-dark)]"
+            className="text-sm font-black text-(--color-dark)"
           >
             Email
           </label>
@@ -138,14 +138,14 @@ export function ContactForm({ targetEmail }: ContactFormProps) {
             value={formData.email}
             onChange={(event) => updateField('email', event.target.value)}
             placeholder="tu@email.com"
-            className="mt-2 w-full bg-[var(--color-surface)] px-4 py-3 text-sm font-bold text-[var(--color-dark)] outline-none transition placeholder:text-[var(--color-muted)] focus:ring-4 focus:ring-[rgba(236,234,231,0.45)]"
+            className="mt-2 w-full bg-(--color-surface) px-4 py-3 text-sm font-bold text-(--color-dark) outline-none transition placeholder:text-(--color-muted) focus:ring-4 focus:ring-[rgba(236,234,231,0.45)]"
           />
         </div>
 
         <div>
           <label
             htmlFor="contact-message"
-            className="text-sm font-black text-[var(--color-dark)]"
+            className="text-sm font-black text-(--color-dark)"
           >
             Mensaje
           </label>
@@ -156,7 +156,7 @@ export function ContactForm({ targetEmail }: ContactFormProps) {
             onChange={(event) => updateField('message', event.target.value)}
             placeholder="Contame brevemente en qué te puedo ayudar..."
             rows={5}
-            className="mt-2 w-full resize-none bg-[var(--color-surface)] px-4 py-3 text-sm font-bold leading-6 text-[var(--color-dark)] outline-none transition placeholder:text-[var(--color-muted)] focus:ring-4 focus:ring-[rgba(236,234,231,0.45)]"
+            className="mt-2 w-full resize-none bg-(--color-surface) px-4 py-3 text-sm font-bold leading-6 text-(--color-dark) outline-none transition placeholder:text-(--color-muted) focus:ring-4 focus:ring-[rgba(236,234,231,0.45)]"
           />
         </div>
 
@@ -181,7 +181,7 @@ export function ContactForm({ targetEmail }: ContactFormProps) {
         )}
 
         {successMessage !== null && (
-          <p className="bg-[rgba(47,37,32,0.10)] px-4 py-3 text-sm font-bold text-[var(--color-primary)]">
+          <p className="bg-[rgba(47,37,32,0.10)] px-4 py-3 text-sm font-bold text-(--color-primary)">
             {successMessage}
           </p>
         )}
@@ -189,7 +189,7 @@ export function ContactForm({ targetEmail }: ContactFormProps) {
         <button
           type="submit"
           disabled={targetEmail === null || isSubmitting}
-          className="bg-[var(--color-panel-dark)] px-6 py-3 text-sm font-black text-[var(--color-bg)] transition hover:-translate-y-0.5 hover:bg-[var(--color-primary)] disabled:cursor-not-allowed disabled:opacity-60"
+          className="bg-(--color-panel-dark) px-6 py-3 text-sm font-black text-(--color-bg) transition hover:-translate-y-0.5 hover:bg-(--color-primary) disabled:cursor-not-allowed disabled:opacity-60"
         >
           {isSubmitting ? 'Enviando...' : 'Enviar mensaje'}
         </button>

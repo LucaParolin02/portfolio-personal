@@ -1,90 +1,88 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from "react";
 
-import { ContactForm } from './components/ContactForm'
-import { ExperienceCard } from './components/ExperienceCard'
-import { ProjectCard } from './components/ProjectCard'
-import { ScrollToTopButton } from './components/ScrollToTopButton'
-import { SectionHeader } from './components/SectionHeader'
-import { SkillCategoryCard } from './components/SkillCategoryCard'
-import { portfolioApi } from './services/portfolioApi'
+import { ContactForm } from "./components/ContactForm";
+import { ExperienceCard } from "./components/ExperienceCard";
+import { ProjectCard } from "./components/ProjectCard";
+import { ScrollToTopButton } from "./components/ScrollToTopButton";
+import { SectionHeader } from "./components/SectionHeader";
+import { SkillCategoryCard } from "./components/SkillCategoryCard";
+import { portfolioApi } from "./services/portfolioApi";
 import type {
   Experience,
   Profile,
   Project,
   SkillCategory,
-} from './types/portfolio'
+} from "./types/portfolio";
 
 type PortfolioData = {
-  profile: Profile
-  projects: Project[]
-  skills: SkillCategory[]
-  experience: Experience[]
-}
+  profile: Profile;
+  projects: Project[];
+  skills: SkillCategory[];
+  experience: Experience[];
+};
 
 function App() {
-  const [data, setData] = useState<PortfolioData | null>(null)
-  const [isLoading, setIsLoading] = useState(true)
-  const [errorMessage, setErrorMessage] = useState<string | null>(null)
+  const [data, setData] = useState<PortfolioData | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   useEffect(() => {
     async function loadPortfolioData() {
       try {
-        setIsLoading(true)
-        setErrorMessage(null)
+        setIsLoading(true);
+        setErrorMessage(null);
 
         const [profile, projects, skills, experience] = await Promise.all([
           portfolioApi.getProfile(),
           portfolioApi.getProjects(),
           portfolioApi.getSkills(),
           portfolioApi.getExperience(),
-        ])
+        ]);
 
         setData({
           profile,
           projects,
           skills,
           experience,
-        })
+        });
       } catch (error) {
         const message =
           error instanceof Error
             ? error.message
-            : 'Ocurrió un error inesperado al cargar el portfolio.'
+            : "Ocurrió un error inesperado al cargar el portfolio.";
 
-        setErrorMessage(message)
+        setErrorMessage(message);
       } finally {
-        setIsLoading(false)
+        setIsLoading(false);
       }
     }
 
-    loadPortfolioData()
-  }, [])
+    loadPortfolioData();
+  }, []);
 
   if (isLoading) {
     return (
-      <main className="flex min-h-screen items-center justify-center bg-[var(--color-bg)] px-6 text-[var(--color-dark)]">
-        <section className="bg-[var(--color-surface)] p-8 text-center shadow-sm">
-          <p className="text-sm font-black uppercase tracking-[0.28em] text-[var(--color-primary)]">
+      <main className="flex min-h-screen items-center justify-center bg-(--color-bg) px-6 text-(--color-dark)">
+        <section className="bg-(--color-surface) p-8 text-center shadow-sm">
+          <p className="text-sm font-black uppercase tracking-[0.28em] text-(--color-primary)">
             Cargando
           </p>
 
-          <h1 className="mt-4 text-2xl font-black">
-            Preparando portfolio...
-          </h1>
+          <h1 className="mt-4 text-2xl font-black">Preparando portfolio...</h1>
 
-          <p className="mt-3 text-[var(--color-text-muted)]">
+          <p className="mt-3 text-(--color-text-muted)">
             Conectando con la API local.
           </p>
         </section>
       </main>
-    )
+    );
   }
 
   if (errorMessage !== null) {
     return (
-      <main className="flex min-h-screen items-center justify-center bg-[var(--color-bg)] px-6 text-[var(--color-dark)]">
-        <section className="max-w-xl bg-[var(--color-surface)] p-8 shadow-sm">
-          <p className="text-sm font-black uppercase tracking-[0.28em] text-[var(--color-primary)]">
+      <main className="flex min-h-screen items-center justify-center bg-(--color-bg) px-6 text-(--color-dark)">
+        <section className="max-w-xl bg-(--color-surface) p-8 shadow-sm">
+          <p className="text-sm font-black uppercase tracking-[0.28em] text-(--color-primary)">
             Error de conexión
           </p>
 
@@ -92,46 +90,48 @@ function App() {
             No se pudo cargar la información del portfolio.
           </h1>
 
-          <p className="mt-4 text-sm leading-7 text-[var(--color-text-muted)]">
+          <p className="mt-4 text-sm leading-7 text-(--color-text-muted)">
             {errorMessage}
           </p>
 
-          <p className="mt-4 text-sm leading-7 text-[var(--color-text-muted)]">
-            Verificá que la API esté corriendo en{' '}
-            <code className="bg-[rgba(131,143,123,0.16)] px-2 py-1 font-semibold text-[var(--color-dark)]">
+          <p className="mt-4 text-sm leading-7 text-(--color-text-muted)">
+            Verificá que la API esté corriendo en{" "}
+            <code className="bg-[rgba(131,143,123,0.16)] px-2 py-1 font-semibold text-(--color-dark)">
               http://localhost:8000
             </code>
           </p>
         </section>
       </main>
-    )
+    );
   }
 
   if (data === null) {
-    return null
+    return null;
   }
 
-  const featuredProjects = data.projects.filter((project) => project.featured)
-  const secondaryProjects = data.projects.filter((project) => !project.featured)
+  const featuredProjects = data.projects.filter((project) => project.featured);
+  const secondaryProjects = data.projects.filter(
+    (project) => !project.featured,
+  );
 
   return (
-    <main className="min-h-screen overflow-hidden text-[var(--color-dark)]">
+    <main className="min-h-screen overflow-hidden text-(--color-dark)">
       <Header />
 
       <section
         id="top"
         className="relative mx-auto flex min-h-screen max-w-7xl flex-col justify-center px-6 py-24 md:px-10 lg:px-12"
       >
-        <div className="absolute right-[-8rem] top-24 hidden h-72 w-72 bg-[rgba(84,112,61,0.10)] blur-3xl lg:block" />
-        <div className="absolute bottom-20 left-[-8rem] hidden h-72 w-72 bg-[rgba(124,106,75,0.12)] blur-3xl lg:block" />
+        <div className="absolute -right-32 top-24 hidden h-72 w-72 bg-[rgba(84,112,61,0.10)] blur-3xl lg:block" />
+        <div className="absolute bottom-20 -left-32 hidden h-72 w-72 bg-[rgba(124,106,75,0.12)] blur-3xl lg:block" />
 
         <div className="relative grid gap-12 lg:grid-cols-[1.15fr_0.85fr] lg:items-center">
           <section>
-            <p className="mb-5 text-sm font-black uppercase tracking-[0.32em] text-[var(--color-primary)]">
+            <p className="mb-5 text-sm font-black uppercase tracking-[0.32em] text-(--color-primary)">
               Portfolio personal
             </p>
 
-            <h1 className="max-w-4xl text-5xl font-black tracking-tight text-[var(--color-dark)] md:text-7xl">
+            <h1 className="max-w-4xl text-5xl font-black tracking-tight text-(--color-dark) md:text-7xl">
               {data.profile.name}
             </h1>
 
@@ -139,21 +139,21 @@ function App() {
               {data.profile.headline}
             </h2>
 
-            <p className="mt-7 max-w-3xl text-lg leading-9 text-[var(--color-text-muted)]">
+            <p className="mt-7 max-w-3xl text-lg leading-9 text-(--color-text-muted)">
               {data.profile.summary}
             </p>
 
             <div className="mt-9 flex flex-wrap gap-4">
               <a
                 href="#projects"
-                className="bg-[var(--color-panel-dark)] px-6 py-3 text-sm font-black text-[var(--color-bg)] shadow-lg shadow-[rgba(84,112,61,0.22)] transition hover:-translate-y-0.5 hover:bg-[var(--color-primary)]"
+                className="bg-(--color-panel-dark) px-6 py-3 text-sm font-black text-(--color-bg) shadow-lg shadow-[rgba(84,112,61,0.22)] transition hover:-translate-y-0.5 hover:bg-(--color-primary)"
               >
                 Ver proyectos
               </a>
 
               <a
                 href="#contact"
-                className="bg-[var(--color-surface)] px-6 py-3 text-sm font-black text-[var(--color-text-muted)] shadow-sm transition hover:-translate-y-0.5 hover:text-[var(--color-primary)]"
+                className="bg-(--color-surface) px-6 py-3 text-sm font-black text-(--color-text-muted) shadow-sm transition hover:-translate-y-0.5 hover:text-(--color-primary)"
               >
                 Contacto
               </a>
@@ -166,7 +166,7 @@ function App() {
                   href={social.url}
                   target="_blank"
                   rel="noreferrer"
-                  className="bg-[var(--color-surface)] px-4 py-2 text-sm font-bold text-[var(--color-text-muted)] shadow-sm transition hover:-translate-y-0.5 hover:text-[var(--color-primary)]"
+                  className="bg-(--color-surface) px-4 py-2 text-sm font-bold text-(--color-text-muted) shadow-sm transition hover:-translate-y-0.5 hover:text-(--color-primary)"
                 >
                   {social.name}
                 </a>
@@ -174,46 +174,46 @@ function App() {
             </div>
           </section>
 
-          <aside className="bg-[var(--color-surface)] p-7 text-center shadow-xl shadow-[rgba(51,60,43,0.10)]">
+          <aside className="bg-(--color-surface) p-7 text-center shadow-xl shadow-[rgba(51,60,43,0.10)]">
             <div className="inline-block">
-              <p className="text-base font-black uppercase tracking-[0.26em] text-[var(--color-primary)]">
+              <p className="text-base font-black uppercase tracking-[0.26em] text-(--color-primary)">
                 Stack actual
               </p>
 
-              <div className="mx-auto mt-3 h-1 w-20 bg-[var(--color-primary)]" />
+              <div className="mx-auto mt-3 h-1 w-20 bg-(--color-primary)" />
             </div>
 
             <div className="mt-7 grid gap-3">
               {[
-                'React + Vite + TypeScript',
-                'FastAPI + PostgreSQL',
-                'Docker + Docker Compose',
-                'NGINX + DigitalOcean',
-                'Aprendiendo AWS ECS y S3',
+                "React + Vite + TypeScript",
+                "FastAPI + PostgreSQL",
+                "Docker + Docker Compose",
+                "NGINX + DigitalOcean",
+                "Aprendiendo AWS ECS y S3",
               ].map((item) => (
                 <div
                   key={item}
-                  className="bg-[rgba(131,143,123,0.14)] px-4 py-3 text-center text-sm font-black text-[var(--color-dark)] shadow-sm"
+                  className="bg-[rgba(131,143,123,0.14)] px-4 py-3 text-center text-sm font-black text-(--color-dark) shadow-sm"
                 >
                   {item}
                 </div>
               ))}
             </div>
 
-            <div className="mt-7 bg-[var(--color-panel-dark)] p-5 text-left text-[var(--color-bg)] shadow-sm">
-              <p className="text-xs font-black uppercase tracking-[0.24em] text-[var(--color-bg)]">
+            <div className="mt-7 bg-(--color-panel-dark) p-5 text-left text-(--color-bg) shadow-sm">
+              <p className="text-xs font-black uppercase tracking-[0.24em] text-(--color-bg)">
                 Enfoque
               </p>
 
-              <ul className="mt-4 grid gap-3 text-sm font-semibold leading-6 text-[var(--color-bg)]">
+              <ul className="mt-4 grid gap-3 text-sm font-semibold leading-6 text-(--color-bg)">
                 {[
-                  'Desarrollo fullstack',
-                  'Automatización de procesos',
-                  'Datos y SQL',
-                  'Infraestructura y despliegue',
+                  "Desarrollo fullstack",
+                  "Automatización de procesos",
+                  "Datos y SQL",
+                  "Infraestructura y despliegue",
                 ].map((item) => (
                   <li key={item} className="flex items-center gap-3">
-                    <span className="h-2 w-2 shrink-0 rounded-full bg-[var(--color-muted)]" />
+                    <span className="h-2 w-2 shrink-0 rounded-full bg-(--color-muted)" />
                     <span>{item}</span>
                   </li>
                 ))}
@@ -288,13 +288,13 @@ function App() {
         id="contact"
         className="mx-auto max-w-7xl px-6 py-24 md:px-10 lg:px-12"
       >
-        <div className="grid gap-8 bg-[var(--color-panel-dark)] p-8 text-[var(--color-bg)] shadow-xl md:p-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
+        <div className="grid gap-8 bg-(--color-panel-dark) p-8 text-(--color-bg) shadow-xl md:p-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
           <section>
-            <p className="text-base font-black uppercase tracking-[0.32em] text-[var(--color-bg)]">
+            <p className="text-base font-black uppercase tracking-[0.32em] text-(--color-bg)">
               Contacto
             </p>
 
-            <div className="mt-3 h-1 w-20 bg-[var(--color-bg)]" />
+            <div className="mt-3 h-1 w-20 bg-(--color-bg)" />
 
             <h2 className="mt-6 max-w-3xl text-3xl font-black tracking-tight md:text-5xl">
               ¿Hablamos sobre desarrollo, datos o automatización?
@@ -313,7 +313,7 @@ function App() {
                   href={social.url}
                   target="_blank"
                   rel="noreferrer"
-                  className="bg-[rgba(236,234,231,0.10)] px-6 py-3 text-sm font-bold text-[var(--color-bg)] transition hover:-translate-y-0.5 hover:bg-[rgba(236,234,231,0.16)]"
+                  className="bg-[rgba(236,234,231,0.10)] px-6 py-3 text-sm font-bold text-(--color-bg) transition hover:-translate-y-0.5 hover:bg-[rgba(236,234,231,0.16)]"
                 >
                   {social.name}
                 </a>
@@ -328,33 +328,33 @@ function App() {
       <Footer />
       <ScrollToTopButton />
     </main>
-  )
+  );
 }
 
 function Header() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const navItems = [
     {
-      label: 'Proyectos',
-      href: '#projects',
+      label: "Proyectos",
+      href: "#projects",
     },
     {
-      label: 'Tecnologías',
-      href: '#skills',
+      label: "Tecnologías",
+      href: "#skills",
     },
     {
-      label: 'Experiencia',
-      href: '#experience',
+      label: "Experiencia",
+      href: "#experience",
     },
     {
-      label: 'Contacto',
-      href: '#contact',
+      label: "Contacto",
+      href: "#contact",
     },
-  ]
+  ];
 
   function closeMenu() {
-    setIsMenuOpen(false)
+    setIsMenuOpen(false);
   }
 
   return (
@@ -363,16 +363,16 @@ function Header() {
         <a
           href="#top"
           onClick={closeMenu}
-          className="text-sm font-black tracking-tight text-[var(--color-dark)]"
+          className="text-sm font-black tracking-tight text-(--color-dark)"
         >
           Luca Parolin
         </a>
 
-        <div className="hidden items-center gap-6 text-sm font-bold text-[var(--color-dark)] md:flex">
+        <div className="hidden items-center gap-6 text-sm font-bold text-(--color-dark) md:flex">
           {navItems.map((item) => (
             <a
               key={item.href}
-              className="transition hover:text-[var(--color-primary)]"
+              className="transition hover:text-(--color-primary)"
               href={item.href}
             >
               {item.label}
@@ -383,25 +383,25 @@ function Header() {
         <button
           type="button"
           onClick={() => setIsMenuOpen((currentValue) => !currentValue)}
-          aria-label={isMenuOpen ? 'Cerrar menú' : 'Abrir menú'}
+          aria-label={isMenuOpen ? "Cerrar menú" : "Abrir menú"}
           aria-expanded={isMenuOpen}
-          className="flex h-10 w-10 flex-col items-center justify-center gap-1.5 bg-[var(--color-surface)] shadow-sm md:hidden"
+          className="flex h-10 w-10 flex-col items-center justify-center gap-1.5 bg-(--color-surface) shadow-sm md:hidden"
         >
           <span
-            className={`h-0.5 w-5 bg-[var(--color-dark)] transition ${
-              isMenuOpen ? 'translate-y-2 rotate-45' : ''
+            className={`h-0.5 w-5 bg-(--color-dark) transition ${
+              isMenuOpen ? "translate-y-2 rotate-45" : ""
             }`}
           />
 
           <span
-            className={`h-0.5 w-5 bg-[var(--color-dark)] transition ${
-              isMenuOpen ? 'opacity-0' : ''
+            className={`h-0.5 w-5 bg-(--color-dark) transition ${
+              isMenuOpen ? "opacity-0" : ""
             }`}
           />
 
           <span
-            className={`h-0.5 w-5 bg-[var(--color-dark)] transition ${
-              isMenuOpen ? '-translate-y-2 -rotate-45' : ''
+            className={`h-0.5 w-5 bg-(--color-dark) transition ${
+              isMenuOpen ? "-translate-y-2 -rotate-45" : ""
             }`}
           />
         </button>
@@ -415,7 +415,7 @@ function Header() {
                 key={item.href}
                 href={item.href}
                 onClick={closeMenu}
-                className="bg-[var(--color-surface)] px-4 py-3 text-sm font-black text-[var(--color-dark)] shadow-sm transition hover:text-[var(--color-primary)]"
+                className="bg-(--color-surface) px-4 py-3 text-sm font-black text-(--color-dark) shadow-sm transition hover:text-(--color-primary)"
               >
                 {item.label}
               </a>
@@ -424,18 +424,18 @@ function Header() {
         </div>
       )}
     </header>
-  )
+  );
 }
 
 function Footer() {
   return (
-    <footer className="px-6 py-8 text-center text-sm text-[var(--color-text-muted)]">
+    <footer className="px-6 py-8 text-center text-sm text-(--color-text-muted)">
       <p>
         Portfolio construido con React, Vite, TypeScript, Tailwind, FastAPI,
         PostgreSQL, Docker y despliegue propio.
       </p>
     </footer>
-  )
+  );
 }
 
-export default App
+export default App;
