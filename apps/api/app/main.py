@@ -7,14 +7,14 @@ from app.core.config import settings
 
 app = FastAPI(
     title=settings.APP_NAME,
-    version="0.2.0",
+    version="0.3.0",
     description="API personal para portfolio, proyectos, experiencia, skills y contacto.",
 )
 
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[settings.FRONTEND_ORIGIN],
+    allow_origins=settings.cors_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -56,7 +56,6 @@ app.include_router(
     prefix=settings.API_V1_PREFIX,
     tags=["contact"],
 )
-
 
 @app.get("/")
 def root() -> dict[str, str]:
