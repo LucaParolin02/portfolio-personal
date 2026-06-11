@@ -3,6 +3,7 @@ from fastapi import APIRouter, HTTPException, Request, status
 from app.schemas.contact import ContactMessageRequest, ContactMessageResponse
 from app.services.contact_guard_service import ContactGuardService
 from app.services.email_service import EmailService
+from app.services.email_validation_service import EmailValidationService
 
 
 router = APIRouter()
@@ -10,9 +11,10 @@ router = APIRouter()
 
 def get_client_ip(request: Request) -> str:
     """
-    Obtiene la IP del cliente.
+    Obtiene la IP real del cliente.
 
-    En producción detrás de NGINX puede llegar por X-Forwarded-For.
+    En local usa request.client.host.
+    En producción, si la API está detrás de NGINX, intenta usar X-Forwarded-For.
     """
 
     forwarded_for = request.headers.get("x-forwarded-for")
@@ -36,19 +38,29 @@ def send_contact_message(
     if not ContactGuardService.is_allowed_ip(client_ip):
         raise HTTPException(
             status_code=status.HTTP_429_TOO_MANY_REQUESTS,
-            detail="Too many contact attempts. Please try again later.",
+            detail="Demasiados intentos de contacto. Probá nuevamente más tarde.",
         )
 
     if not ContactGuardService.validate_honeypot(payload.company_website):
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Invalid contact request.",
+            detail="Solicitud de contacto inválida.",
         )
 
     if not ContactGuardService.validate_elapsed_time(payload.form_started_at):
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
-            detail="The form was submitted too quickly.",
+            detail="El formulario fue enviado demasiado rápido.",
+        )
+
+    is_valid_email_domain, email_error = EmailValidationService.validate_email_domain(
+        str(payload.email)
+    )
+
+    if not is_valid_email_domain:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=email_error or "El email ingresado no es válido.",
         )
 
     try:
@@ -58,12 +70,14 @@ def send_contact_message(
             message=payload.message.strip(),
         )
     except Exception as exc:
+        print("CONTACT EMAIL ERROR:", repr(exc))
+
         raise HTTPException(
             status_code=status.HTTP_502_BAD_GATEWAY,
-            detail="The contact email could not be sent.",
+            detail="No se pudo enviar el mensaje de contacto.",
         ) from exc
 
     return ContactMessageResponse(
         status="ok",
-        message="Contact message sent successfully.",
+        message="Mensaje enviado correctamente.",
     )
