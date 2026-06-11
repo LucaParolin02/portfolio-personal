@@ -6,31 +6,31 @@ type ExperienceCardProps = {
 
 export function ExperienceCard({ experience }: ExperienceCardProps) {
   return (
-    <article className="relative rounded-4x1 border border-[#DDCBB6] bg-[#FFF8EF]/85 p-6 shadow-sm md:p-7">
-      <div className="absolute -left-2 top-8 hidden h-4 w-4 rounded-full border-4 border-[#F7F0E6] bg-[#A7633D] md:block" />
-
+    <article className="bg-[var(--color-surface)] p-6 shadow-sm md:p-7">
       <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
         <div>
-          <h3 className="text-2xl font-bold text-[#2F2520]">
+          <h3 className="text-2xl font-black text-[var(--color-dark)]">
             {experience.role}
           </h3>
 
-          <p className="mt-1 text-sm font-semibold uppercase tracking-[0.18em] text-[#A7633D]">
+          <p className="mt-1 text-sm font-black uppercase tracking-[0.18em] text-[var(--color-primary)]">
             {experience.company}
           </p>
         </div>
 
-        <p className="rounded-full border border-[#DDCBB6] bg-[#F7F0E6] px-4 py-2 text-sm font-semibold text-[#6E5E52]">
+        <p className="bg-[rgba(131,143,123,0.16)] px-4 py-2 text-sm font-bold text-[var(--color-dark)]">
           {experience.period}
         </p>
       </div>
 
-      <p className="mt-5 leading-8 text-[#6E5E52]">{experience.summary}</p>
+      <p className="mt-5 leading-8 text-[var(--color-text-muted)]">
+        {experience.summary}
+      </p>
 
-      <ul className="mt-5 space-y-2 text-sm leading-7 text-[#55483F]">
+      <ul className="mt-5 space-y-2 text-sm leading-7 text-[var(--color-text-muted)]">
         {experience.achievements.map((achievement) => (
           <li key={achievement} className="flex gap-2">
-            <span className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[#7B8066]" />
+            <span className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--color-accent)]" />
             <span>{achievement}</span>
           </li>
         ))}
@@ -40,7 +40,7 @@ export function ExperienceCard({ experience }: ExperienceCardProps) {
         {experience.technologies.map((technology) => (
           <span
             key={technology}
-            className="rounded-full border border-[#DDCBB6] bg-[#EFE2D0] px-3 py-1 text-xs font-semibold text-[#5F5047]"
+            className="bg-[rgba(131,143,123,0.16)] px-3 py-1 text-xs font-bold text-[var(--color-dark)]"
           >
             {technology}
           </span>

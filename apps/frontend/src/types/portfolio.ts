@@ -39,3 +39,16 @@ export type SocialLink = {
     achievements: string[]
     technologies: string[]
   }
+
+  export type ContactMessagePayload = {
+    name: string
+    email: string
+    message: string
+    company_website: string
+    form_started_at: number
+  }
+  
+  export type ContactMessageResponse = {
+    status: string
+    message: string
+  }

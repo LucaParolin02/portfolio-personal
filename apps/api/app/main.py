@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.api.routers import experience, health, profile, projects, skills
+from app.api.routers import contact, experience, health, profile, projects, skills
 from app.core.config import settings
 
 
@@ -49,6 +49,12 @@ app.include_router(
     experience.router,
     prefix=settings.API_V1_PREFIX,
     tags=["experience"],
+)
+
+app.include_router(
+    contact.router,
+    prefix=settings.API_V1_PREFIX,
+    tags=["contact"],
 )
 
 

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 
+import { ContactForm } from './components/ContactForm'
 import { ExperienceCard } from './components/ExperienceCard'
 import { ProjectCard } from './components/ProjectCard'
 import { ScrollToTopButton } from './components/ScrollToTopButton'
@@ -61,17 +62,17 @@ function App() {
 
   if (isLoading) {
     return (
-      <main className="flex min-h-screen items-center justify-center bg-[#F7F0E6] px-6 text-[#2F2520]">
-        <section className="rounded-4x1 border border-[#DDCBB6] bg-[#FFF8EF]/80 p-8 text-center shadow-sm">
-          <p className="text-sm font-semibold uppercase tracking-[0.28em] text-[#A7633D]">
+      <main className="flex min-h-screen items-center justify-center bg-[var(--color-bg)] px-6 text-[var(--color-dark)]">
+        <section className="bg-[var(--color-surface)] p-8 text-center shadow-sm">
+          <p className="text-sm font-black uppercase tracking-[0.28em] text-[var(--color-primary)]">
             Cargando
           </p>
 
-          <h1 className="mt-4 text-2xl font-bold">
+          <h1 className="mt-4 text-2xl font-black">
             Preparando portfolio...
           </h1>
 
-          <p className="mt-3 text-[#6E5E52]">
+          <p className="mt-3 text-[var(--color-text-muted)]">
             Conectando con la API local.
           </p>
         </section>
@@ -81,23 +82,23 @@ function App() {
 
   if (errorMessage !== null) {
     return (
-      <main className="flex min-h-screen items-center justify-center bg-[#F7F0E6] px-6 text-[#2F2520]">
-        <section className="max-w-xl rounded-4x1 border border-[#B64A36]/30 bg-[#FFF8EF] p-8 shadow-sm">
-          <p className="text-sm font-semibold uppercase tracking-[0.28em] text-[#B64A36]">
+      <main className="flex min-h-screen items-center justify-center bg-[var(--color-bg)] px-6 text-[var(--color-dark)]">
+        <section className="max-w-xl bg-[var(--color-surface)] p-8 shadow-sm">
+          <p className="text-sm font-black uppercase tracking-[0.28em] text-[var(--color-primary)]">
             Error de conexión
           </p>
 
-          <h1 className="mt-4 text-2xl font-bold">
+          <h1 className="mt-4 text-2xl font-black">
             No se pudo cargar la información del portfolio.
           </h1>
 
-          <p className="mt-4 text-sm leading-7 text-[#6E5E52]">
+          <p className="mt-4 text-sm leading-7 text-[var(--color-text-muted)]">
             {errorMessage}
           </p>
 
-          <p className="mt-4 text-sm leading-7 text-[#6E5E52]">
+          <p className="mt-4 text-sm leading-7 text-[var(--color-text-muted)]">
             Verificá que la API esté corriendo en{' '}
-            <code className="rounded-lg bg-[#EFE2D0] px-2 py-1 font-semibold text-[#2F2520]">
+            <code className="bg-[rgba(131,143,123,0.16)] px-2 py-1 font-semibold text-[var(--color-dark)]">
               http://localhost:8000
             </code>
           </p>
@@ -114,23 +115,23 @@ function App() {
   const secondaryProjects = data.projects.filter((project) => !project.featured)
 
   return (
-    <main className="min-h-screen overflow-hidden text-[#2F2520]">
+    <main className="min-h-screen overflow-hidden text-[var(--color-dark)]">
       <Header />
 
       <section
         id="top"
         className="relative mx-auto flex min-h-screen max-w-7xl flex-col justify-center px-6 py-24 md:px-10 lg:px-12"
       >
-        <div className="absolute right-32 top-24 hidden h-72 w-72 rounded-full bg-[#A7633D]/10 blur-3xl lg:block" />
-        <div className="absolute bottom-20 left-32 hidden h-72 w-72 rounded-full bg-[#7B8066]/10 blur-3xl lg:block" />
+        <div className="absolute right-[-8rem] top-24 hidden h-72 w-72 bg-[rgba(84,112,61,0.10)] blur-3xl lg:block" />
+        <div className="absolute bottom-20 left-[-8rem] hidden h-72 w-72 bg-[rgba(124,106,75,0.12)] blur-3xl lg:block" />
 
         <div className="relative grid gap-12 lg:grid-cols-[1.15fr_0.85fr] lg:items-center">
           <section>
-            <p className="mb-5 text-sm font-bold uppercase tracking-[0.32em] text-[#A7633D]">
+            <p className="mb-5 text-sm font-black uppercase tracking-[0.32em] text-[var(--color-primary)]">
               Portfolio personal
             </p>
 
-            <h1 className="max-w-4xl text-5xl font-black tracking-tight text-[#2F2520] md:text-7xl">
+            <h1 className="max-w-4xl text-5xl font-black tracking-tight text-[var(--color-dark)] md:text-7xl">
               {data.profile.name}
             </h1>
 
@@ -138,21 +139,21 @@ function App() {
               {data.profile.headline}
             </h2>
 
-            <p className="mt-7 max-w-3xl text-lg leading-9 text-[#6E5E52]">
+            <p className="mt-7 max-w-3xl text-lg leading-9 text-[var(--color-text-muted)]">
               {data.profile.summary}
             </p>
 
             <div className="mt-9 flex flex-wrap gap-4">
               <a
                 href="#projects"
-                className="rounded-full bg-[#A7633D] px-6 py-3 text-sm font-bold text-[#FFF8EF] shadow-lg shadow-[#A7633D]/20 transition hover:-translate-y-0.5 hover:bg-[#7A4329]"
+                className="bg-[var(--color-panel-dark)] px-6 py-3 text-sm font-black text-[var(--color-bg)] shadow-lg shadow-[rgba(84,112,61,0.22)] transition hover:-translate-y-0.5 hover:bg-[var(--color-primary)]"
               >
                 Ver proyectos
               </a>
 
               <a
                 href="#contact"
-                className="rounded-full border border-[#A7633D]/30 bg-[#FFF8EF]/70 px-6 py-3 text-sm font-bold text-[#7A4329] transition hover:-translate-y-0.5 hover:border-[#A7633D] hover:bg-[#FFF8EF]"
+                className="bg-[var(--color-surface)] px-6 py-3 text-sm font-black text-[var(--color-text-muted)] shadow-sm transition hover:-translate-y-0.5 hover:text-[var(--color-primary)]"
               >
                 Contacto
               </a>
@@ -165,7 +166,7 @@ function App() {
                   href={social.url}
                   target="_blank"
                   rel="noreferrer"
-                  className="rounded-full border border-[#DDCBB6] bg-[#FFF8EF]/70 px-4 py-2 text-sm font-bold text-[#5F5047] transition hover:border-[#A7633D] hover:text-[#A7633D]"
+                  className="bg-[var(--color-surface)] px-4 py-2 text-sm font-bold text-[var(--color-text-muted)] shadow-sm transition hover:-translate-y-0.5 hover:text-[var(--color-primary)]"
                 >
                   {social.name}
                 </a>
@@ -173,12 +174,16 @@ function App() {
             </div>
           </section>
 
-          <aside className="rounded-[2.5rem] border border-[#DDCBB6] bg-[#FFF8EF]/80 p-7 shadow-xl shadow-[#A7633D]/10 backdrop-blur">
-            <p className="text-sm font-bold uppercase tracking-[0.24em] text-[#A7633D]">
-              Stack actual
-            </p>
+          <aside className="bg-[var(--color-surface)] p-7 text-center shadow-xl shadow-[rgba(51,60,43,0.10)]">
+            <div className="inline-block">
+              <p className="text-base font-black uppercase tracking-[0.26em] text-[var(--color-primary)]">
+                Stack actual
+              </p>
 
-            <div className="mt-6 grid gap-3">
+              <div className="mx-auto mt-3 h-1 w-20 bg-[var(--color-primary)]" />
+            </div>
+
+            <div className="mt-7 grid gap-3">
               {[
                 'React + Vite + TypeScript',
                 'FastAPI + PostgreSQL',
@@ -188,27 +193,40 @@ function App() {
               ].map((item) => (
                 <div
                   key={item}
-                  className="rounded-2xl border border-[#DDCBB6] bg-[#F7F0E6] px-4 py-3 text-sm font-semibold text-[#55483F]"
+                  className="bg-[rgba(131,143,123,0.14)] px-4 py-3 text-center text-sm font-black text-[var(--color-dark)] shadow-sm"
                 >
                   {item}
                 </div>
               ))}
             </div>
 
-            <div className="mt-7 rounded-3xl bg-[#2F2520] p-5 text-[#FFF8EF]">
-              <p className="text-sm font-semibold text-[#E8D8C3]">
+            <div className="mt-7 bg-[var(--color-panel-dark)] p-5 text-left text-[var(--color-bg)] shadow-sm">
+              <p className="text-xs font-black uppercase tracking-[0.24em] text-[var(--color-bg)]">
                 Enfoque
               </p>
 
-              <p className="mt-3 text-2xl font-bold leading-tight">
-                Desarrollo fullstack, automatización, datos e infraestructura.
-              </p>
+              <ul className="mt-4 grid gap-3 text-sm font-semibold leading-6 text-[var(--color-bg)]">
+                {[
+                  'Desarrollo fullstack',
+                  'Automatización de procesos',
+                  'Datos y SQL',
+                  'Infraestructura y despliegue',
+                ].map((item) => (
+                  <li key={item} className="flex items-center gap-3">
+                    <span className="h-2 w-2 shrink-0 rounded-full bg-[var(--color-muted)]" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
           </aside>
         </div>
       </section>
 
-      <section id="projects" className="mx-auto max-w-7xl px-6 py-24 md:px-10 lg:px-12">
+      <section
+        id="projects"
+        className="mx-auto max-w-7xl px-6 py-24 md:px-10 lg:px-12"
+      >
         <SectionHeader
           eyebrow="Proyectos"
           title="Soluciones reales, productos propios y práctica fullstack"
@@ -226,7 +244,10 @@ function App() {
         </div>
       </section>
 
-      <section id="skills" className="mx-auto max-w-7xl px-6 py-24 md:px-10 lg:px-12">
+      <section
+        id="skills"
+        className="mx-auto max-w-7xl px-6 py-24 md:px-10 lg:px-12"
+      >
         <SectionHeader
           eyebrow="Tecnologías"
           title="Stack técnico organizado por áreas"
@@ -243,14 +264,17 @@ function App() {
         </div>
       </section>
 
-      <section id="experience" className="mx-auto max-w-7xl px-6 py-24 md:px-10 lg:px-12">
+      <section
+        id="experience"
+        className="mx-auto max-w-7xl px-6 py-24 md:px-10 lg:px-12"
+      >
         <SectionHeader
           eyebrow="Experiencia"
           title="Experiencia profesional y evolución técnica"
           description="Trabajo aplicado en desarrollo web, automatización, integración de servicios, SQL Server y construcción de soluciones internas."
         />
 
-        <div className="relative mt-12 space-y-7 md:border-l md:border-[#DDCBB6] md:pl-8">
+        <div className="relative mt-12 space-y-7">
           {data.experience.map((experience) => (
             <ExperienceCard
               key={`${experience.company}-${experience.role}`}
@@ -260,43 +284,44 @@ function App() {
         </div>
       </section>
 
-      <section id="contact" className="mx-auto max-w-7xl px-6 py-24 md:px-10 lg:px-12">
-        <div className="rounded-[2.5rem] border border-[#DDCBB6] bg-[#2F2520] p-8 text-[#FFF8EF] shadow-xl md:p-10">
-          <p className="text-sm font-bold uppercase tracking-[0.28em] text-[#E8D8C3]">
-            Contacto
-          </p>
+      <section
+        id="contact"
+        className="mx-auto max-w-7xl px-6 py-24 md:px-10 lg:px-12"
+      >
+        <div className="grid gap-8 bg-[var(--color-panel-dark)] p-8 text-[var(--color-bg)] shadow-xl md:p-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
+          <section>
+            <p className="text-base font-black uppercase tracking-[0.32em] text-[var(--color-bg)]">
+              Contacto
+            </p>
 
-          <h2 className="mt-4 max-w-3xl text-3xl font-black tracking-tight md:text-5xl">
-            ¿Hablamos sobre desarrollo, datos o automatización?
-          </h2>
+            <div className="mt-3 h-1 w-20 bg-[var(--color-bg)]" />
 
-          <p className="mt-5 max-w-3xl text-base leading-8 text-[#E8D8C3]">
-            Estoy construyendo este portfolio como una aplicación real para mostrar
-            experiencia fullstack, backend, datos, contenedores y despliegue propio.
-          </p>
+            <h2 className="mt-6 max-w-3xl text-3xl font-black tracking-tight md:text-5xl">
+              ¿Hablamos sobre desarrollo, datos o automatización?
+            </h2>
 
-          <div className="mt-8 flex flex-wrap gap-4">
-            {data.profile.email !== null && (
-              <a
-                href={`mailto:${data.profile.email}`}
-                className="rounded-full bg-[#FFF8EF] px-6 py-3 text-sm font-bold text-[#2F2520] transition hover:-translate-y-0.5 hover:bg-[#E8D8C3]"
-              >
-                Enviar email
-              </a>
-            )}
+            <p className="mt-5 max-w-3xl text-base leading-8 text-[rgba(236,234,231,0.78)]">
+              Estoy construyendo este portfolio como una aplicación real para
+              mostrar experiencia fullstack, backend, datos, contenedores y
+              despliegue propio.
+            </p>
 
-            {data.profile.socials.map((social) => (
-              <a
-                key={social.name}
-                href={social.url}
-                target="_blank"
-                rel="noreferrer"
-                className="rounded-full border border-[#FFF8EF]/25 px-6 py-3 text-sm font-bold text-[#FFF8EF] transition hover:-translate-y-0.5 hover:bg-[#FFF8EF]/10"
-              >
-                {social.name}
-              </a>
-            ))}
-          </div>
+            <div className="mt-8 flex flex-wrap gap-4">
+              {data.profile.socials.map((social) => (
+                <a
+                  key={social.name}
+                  href={social.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="bg-[rgba(236,234,231,0.10)] px-6 py-3 text-sm font-bold text-[var(--color-bg)] transition hover:-translate-y-0.5 hover:bg-[rgba(236,234,231,0.16)]"
+                >
+                  {social.name}
+                </a>
+              ))}
+            </div>
+          </section>
+
+          <ContactForm targetEmail={data.profile.email} />
         </div>
       </section>
 
@@ -307,35 +332,104 @@ function App() {
 }
 
 function Header() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
+
+  const navItems = [
+    {
+      label: 'Proyectos',
+      href: '#projects',
+    },
+    {
+      label: 'Tecnologías',
+      href: '#skills',
+    },
+    {
+      label: 'Experiencia',
+      href: '#experience',
+    },
+    {
+      label: 'Contacto',
+      href: '#contact',
+    },
+  ]
+
+  function closeMenu() {
+    setIsMenuOpen(false)
+  }
+
   return (
-    <header className="fixed left-0 right-0 top-0 z-40 border-b border-[#DDCBB6]/70 bg-[#F7F0E6]/80 backdrop-blur-xl">
+    <header className="fixed left-0 right-0 top-0 z-40 bg-[rgba(236,234,231,0.92)] shadow-sm backdrop-blur-xl">
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 md:px-10 lg:px-12">
-        <a href="#top" className="text-sm font-black tracking-tight text-[#2F2520]">
+        <a
+          href="#top"
+          onClick={closeMenu}
+          className="text-sm font-black tracking-tight text-[var(--color-dark)]"
+        >
           Luca Parolin
         </a>
 
-        <div className="hidden items-center gap-6 text-sm font-bold text-[#6E5E52] md:flex">
-          <a className="transition hover:text-[#A7633D]" href="#projects">
-            Proyectos
-          </a>
-          <a className="transition hover:text-[#A7633D]" href="#skills">
-            Tecnologías
-          </a>
-          <a className="transition hover:text-[#A7633D]" href="#experience">
-            Experiencia
-          </a>
-          <a className="transition hover:text-[#A7633D]" href="#contact">
-            Contacto
-          </a>
+        <div className="hidden items-center gap-6 text-sm font-bold text-[var(--color-dark)] md:flex">
+          {navItems.map((item) => (
+            <a
+              key={item.href}
+              className="transition hover:text-[var(--color-primary)]"
+              href={item.href}
+            >
+              {item.label}
+            </a>
+          ))}
         </div>
+
+        <button
+          type="button"
+          onClick={() => setIsMenuOpen((currentValue) => !currentValue)}
+          aria-label={isMenuOpen ? 'Cerrar menú' : 'Abrir menú'}
+          aria-expanded={isMenuOpen}
+          className="flex h-10 w-10 flex-col items-center justify-center gap-1.5 bg-[var(--color-surface)] shadow-sm md:hidden"
+        >
+          <span
+            className={`h-0.5 w-5 bg-[var(--color-dark)] transition ${
+              isMenuOpen ? 'translate-y-2 rotate-45' : ''
+            }`}
+          />
+
+          <span
+            className={`h-0.5 w-5 bg-[var(--color-dark)] transition ${
+              isMenuOpen ? 'opacity-0' : ''
+            }`}
+          />
+
+          <span
+            className={`h-0.5 w-5 bg-[var(--color-dark)] transition ${
+              isMenuOpen ? '-translate-y-2 -rotate-45' : ''
+            }`}
+          />
+        </button>
       </nav>
+
+      {isMenuOpen && (
+        <div className="bg-[rgba(236,234,231,0.96)] px-6 py-4 shadow-sm md:hidden">
+          <div className="mx-auto grid max-w-7xl gap-3">
+            {navItems.map((item) => (
+              <a
+                key={item.href}
+                href={item.href}
+                onClick={closeMenu}
+                className="bg-[var(--color-surface)] px-4 py-3 text-sm font-black text-[var(--color-dark)] shadow-sm transition hover:text-[var(--color-primary)]"
+              >
+                {item.label}
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
     </header>
   )
 }
 
 function Footer() {
   return (
-    <footer className="border-t border-[#DDCBB6] px-6 py-8 text-center text-sm text-[#6E5E52]">
+    <footer className="px-6 py-8 text-center text-sm text-[var(--color-text-muted)]">
       <p>
         Portfolio construido con React, Vite, TypeScript, Tailwind, FastAPI,
         PostgreSQL, Docker y despliegue propio.
